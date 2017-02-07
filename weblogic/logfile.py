@@ -13,12 +13,13 @@ for x in servers:
         edit()
         startedit()
         serverName = x.getName()
-        print '======= Enabling Log Retention for ' + serverName + '======='
+        print '======= Enabling webserver Log Retention for ' + serverName + '======='
         cd('/Servers/'+serverName+'/WebServer/'+serverName+'/WebServerLog/'+serverName)
         cmo.setLoggingEnabled(true)
         cmo.setNumberOfFilesLimited(true)
         cmo.setFileCount('100')
         cmo.FileMinSize('5000')
+        print '======= Enabling Log Retention for ' + serverName + '======='
         cd('/Servers/'+serverName+'/Log/'+serverName)
         cmo.setLoggingEnabled(true)
         cmo.setNumberOfFilesLimited(true)
