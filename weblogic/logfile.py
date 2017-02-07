@@ -15,9 +15,15 @@ for x in servers:
         serverName = x.getName()
         print '======= Enabling Log Retention for ' + serverName + '======='
         cd('/Servers/'+serverName+'/WebServer/'+serverName+'/WebServerLog/'+serverName)
-        cmo.setLog4jLoggingEnabled(true)
-        cmo.setFileCount(100)
-        cmo.FileMinSize(5000)
+        cmo.setLoggingEnabled(true)
+        cmo.setNumberOfFilesLimited(true)
+        cmo.setFileCount('100')
+        cmo.FileMinSize('5000')
+        cd('/Servers/'+serverName+'/Log/'+serverName)
+        cmo.setLoggingEnabled(true)
+        cmo.setNumberOfFilesLimited(true)
+        cmo.setFileCount('100')
+        cmo.FileMinSize('5000')
         save()
         activate()
         print ' '
