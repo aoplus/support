@@ -21,7 +21,7 @@ for x in servers:
         cmo.FileMinSize('5000')
         print '======= Enabling Log Retention for ' + serverName + '======='
         cd('/Servers/'+serverName+'/Log/'+serverName)
-        cmo.setLoggingEnabled(true)
+        cmo.setLog4jLoggingEnabled(true)
         cmo.setNumberOfFilesLimited(true)
         cmo.setFileCount('100')
         cmo.FileMinSize('5000')
