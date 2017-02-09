@@ -8,22 +8,22 @@ execfile('jython/connect.py')  #String to connect to the weblogic server.
 domainConfig()
 servers=cmo.getServers()
 
-def updateHTTPlog(serverName):
+def updateHTTPlog(x):
     """
     Function to update the http log files for weblogic domain
     """
     print '======= Enabling webserver Log Retention for ' + serverName + '======='
-    cd('/Servers/'+serverName+'/WebServer/'+serverName+'/WebServerLog/'+serverName) # change directory to the servers webserver log path
+    cd('/Servers/'+x+'/WebServer/'+x+'/WebServerLog/'+x) # change directory to the servers webserver log path
     cmo.setLoggingEnabled(true) # ENable logging
     cmo.setNumberOfFilesLimited(true) # Enable the retention of log files.
     cmo.setFileCount('100')  #number of http log files to be retained.
 
-def updateGeneralLog(serverName):
+def updateGeneralLog(x):
     """
     function to update the general logs.
     """
     print '======= Enabling Log Retention for ' + serverName + '======='
-    cd('/Servers/'+serverName+'/Log/'+serverName) # Change directory to weblogic server's general log location.
+    cd('/Servers/'+x+'/Log/'+x) # Change directory to weblogic server's general log location.
     cmo.setLog4jLoggingEnabled(true)  # Enable logging
     cmo.setNumberOfFilesLimited(true) # ENable the retention of log files
     cmo.setFileCount('100')  #Set the number of files to be retained.
@@ -31,7 +31,7 @@ def updateGeneralLog(serverName):
 for x in servers:
     try:
         edit()
-        startedit()
+        startEdit()
         serverName = x.getName()
         if serverName is not 'adminserver': # test to check if the serverName is not adminserver and then run the below commands.
             updateGeneralLog(serverName)
