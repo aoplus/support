@@ -1,0 +1,641 @@
+;; Happy hacking, omps - Emacs ♥ you!
+(setq erc-hide-list '("JOIN" "PART" "QUIT"))
+
+
+wldev: {/apps/bea/domains/c41GWMP_Desktop}-> cat /tmp/testjms1.py
+execfile('jython/connect.py')
+easeSyntax()
+allJMSResources = cmo.getJMSSystemResources()
+for jmsResource in allJMSResources:
+module = jmsResource.getName()
+print "MODULE=", module
+
+for jmsResource in allJMSResources:
+module = jmsResource.getName()
+udqs = jmsResource.getJMSResource().getUniformDistributedQueues()
+for udq in udqs:
+print "MODULE=", module, "QUEUE", udq.getName(), " JNDINAME", udq.getJNDIName()
+
+wldev: {/apps/bea/domains/c41GWMP_Desktop}->
+
+
+
+wldev: {/tmp}-> cat jmslogs.py
+execfile('jython/connect.py')
+servers = domainRuntimeService.getServerRuntimes();
+
+if (len(servers) > 0):
+for server in servers:
+jmsRuntime =server.getJMSRuntime();
+jmsServers =jmsRuntime.getJMSServers();
+for jmsServer in jmsServers:
+destinations =jmsServer.getDestinations();
+for destination in destinations:
+print '  BytesCurrentCount           ' ,  destination.getBytesCurrentCount()
+print '  BytesHighCount              ' ,  destination.getBytesHighCount()
+print '  BytesPendingCount           ' ,  destination.getBytesPendingCount()
+print '  BytesReceivedCount          ' ,  destination.getBytesReceivedCount()
+print '  BytesThresholdTime          ' ,  destination.getBytesThresholdTime()
+print '  ConsumersCurrentCount       ' ,  destination.getConsumersCurrentCount()
+print '  ConsumersHighCount          ' ,  destination.getConsumersHighCount()
+print '  ConsumersTotalCount         ' ,  destination.getConsumersTotalCount()
+print '  ConsumptionPausedState      ' ,  destination.getConsumptionPausedState()
+print '  '
+print '  DestinationInfo             ' ,  destination.getDestinationInfo()
+print '  '
+print '  DestinationType             ' ,  destination.getDestinationType()
+print '  InsertionPaused             ' ,  destination.isInsertionPaused()
+print '  InsertionPausedState        ' ,  destination.getInsertionPausedState()
+print '  MessagesCurrentCount        ' ,  destination.getMessagesCurrentCount()
+print '  MessagesDeletedCurrentCount ' ,  destination.getMessagesDeletedCurrentCount()
+print '  MessagesHighCount           ' ,  destination.getMessagesHighCount()
+print '  MessagesMovedCurrentCount   ' ,  destination.getMessagesMovedCurrentCount()
+print '  MessagesPendingCount        ' ,  destination.getMessagesPendingCount()
+print '  MessagesReceivedCount       ' ,  destination.getMessagesReceivedCount()
+print '  MessagesThresholdTime       ' ,  destination.getMessagesThresholdTime()
+print '  Parent                      ' ,  destination.getParent()
+print '  Paused                      ' ,  destination.isPaused()
+print '  ProductionPaused            ' ,  destination.isProductionPaused()
+print '  ProductionPausedState       ' ,  destination.getProductionPausedState()
+print '  State                       ' ,  destination.getState()
+print '  Type                        ' ,  destination.getType()
+
+
+
+wldev: {/tmp}->
+
+
+
+
+
+------------ JMS LOGS --------------
+wldev: {/tmp}-> cat jmslogs.log
+JAVA_HOME   : [/apps/bea/fusion11g/software/jrrt-4.0.1-1.6.0]
+WL_HOME     : [/apps/bea/fusion11g/software/wlserver_10.3]
+JAVA_ARG    : []
+NONJAVA_ARG : [ /tmp/jmslogs.py]
+DOMAIN HOME : [/apps/bea/domains/c41GWMP_Desktop]
+
+Initializing WebLogic Scripting Tool (WLST) ...
+
+Welcome to WebLogic Server Administration Scripting Shell
+
+Type help() for help on available commands
+
+Loading connect.properties
+Could not find the properties file to load properties from connect.properties.
+Connecting to t3://SEIDEVC41WLS01.GWPDEV.SEIC.COM:8001 with userid admin ...
+Successfully connected to Admin Server 'adminServer' that belongs to domain 'c41GWMP_Desktop'.
+
+Warning: An insecure protocol was used to connect to the
+server. To ensure on-the-wire security, the SSL port or
+Admin port should be used instead.
+
+BytesCurrentCount            0
+BytesHighCount               0
+BytesPendingCount            0
+BytesReceivedCount           0
+BytesThresholdTime           0
+ConsumersCurrentCount        10
+ConsumersHighCount           10
+ConsumersTotalCount          10
+ConsumptionPausedState       Consumption-Enabled
+
+DestinationInfo              javax.management.openmbean.CompositeDataSupport(compositeType=javax.management.openmbean.CompositeType(name=DestinationInfo,items=((itemName=ApplicationName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ModuleName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Name,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Queue,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=SerializedDestination,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ServerName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Topic,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=VersionNumber,itemType=javax.management.openmbean.SimpleType(name=java.lang.Integer)))),contents={ApplicationName=DESKTOP-JMS-DEST, ModuleName=null, Name=DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS1_JMSServer@com.seic.common.cachewf.orchestrator.LaserAppFormFeedOrchestrator, Queue=true, SerializedDestination=rO0ABXNyACN3ZWJsb2dpYy5qbXMuY29tbW9uLkRlc3RpbmF0aW9uSW1wbFSmyJ1qZfv8DAAAeHB6AAABH7VBAHRERVNLVE9QLUpNUy1ERVNUIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMxX0pNU1NlcnZlckBjb20uc2VpYy5jb21tb24uY2FjaGV3Zi5vcmNoZXN0cmF0b3IuTGFzZXJBcHBGb3JtRmVlZE9yY2hlc3RyYXRvcgAhRGVza3RvcF9jNDFfRGVza3RvcF9NUzFfSk1TU2VydmVyABBERVNLVE9QLUpNUy1ERVNUAQADQWxsAgJx/0FZR7UG8AAAAAoBAA9jNDFfRGVza3RvcF9NUzFmST9NAnH/QVlHtQbwAAAAEAEAD2M0MV9EZXNrdG9wX01TMWZJP00AAQAhRGVza3RvcF9jNDFfRGVza3RvcF9NUzFfSkRCQ1N0b3JleA==, ServerName=Desktop_c41_Desktop_MS1_JMSServer, Topic=false, VersionNumber=1})
+
+DestinationType              Queue
+InsertionPaused              0
+InsertionPausedState         Insertion-Enabled
+MessagesCurrentCount         0
+MessagesDeletedCurrentCount  0
+MessagesHighCount            0
+MessagesMovedCurrentCount    0
+MessagesPendingCount         0
+MessagesReceivedCount        0
+MessagesThresholdTime        0
+Parent                       [MBeanServerInvocationHandler]com.bea:ServerRuntime=c41_Desktop_MS1,Name=Desktop_c41_Desktop_MS1_JMSServer,Location=c41_Desktop_MS1,Type=JMSServerRuntime
+Paused                       0
+ProductionPaused             0
+ProductionPausedState        Production-Enabled
+State                        advertised_in_cluster_jndi
+Type                         JMSDestinationRuntime
+BytesCurrentCount            0
+BytesHighCount               0
+BytesPendingCount            0
+BytesReceivedCount           0
+BytesThresholdTime           0
+ConsumersCurrentCount        0
+ConsumersHighCount           0
+ConsumersTotalCount          0
+ConsumptionPausedState       Consumption-Enabled
+
+DestinationInfo              javax.management.openmbean.CompositeDataSupport(compositeType=javax.management.openmbean.CompositeType(name=DestinationInfo,items=((itemName=ApplicationName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ModuleName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Name,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Queue,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=SerializedDestination,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ServerName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Topic,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=VersionNumber,itemType=javax.management.openmbean.SimpleType(name=java.lang.Integer)))),contents={ApplicationName=DESKTOP-JMS-DEST, ModuleName=null, Name=DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS1_JMSServer@GMH.JMS.INPUT.QUEUE, Queue=true, SerializedDestination=rO0ABXNyACN3ZWJsb2dpYy5qbXMuY29tbW9uLkRlc3RpbmF0aW9uSW1wbFSmyJ1qZfv8DAAAeHB38bVBAEZERVNLVE9QLUpNUy1ERVNUIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMxX0pNU1NlcnZlckBHTUguSk1TLklOUFVULlFVRVVFACFEZXNrdG9wX2M0MV9EZXNrdG9wX01TMV9KTVNTZXJ2ZXIAEERFU0tUT1AtSk1TLURFU1QBAANBbGwCAnH/QVlHtQbwAAAACgEAD2M0MV9EZXNrdG9wX01TMWZJP00Ccf9BWUe1BvAAAAARAQAPYzQxX0Rlc2t0b3BfTVMxZkk/TQABACFEZXNrdG9wX2M0MV9EZXNrdG9wX01TMV9KREJDU3RvcmV4, ServerName=Desktop_c41_Desktop_MS1_JMSServer, Topic=false, VersionNumber=1})
+
+DestinationType              Queue
+InsertionPaused              0
+InsertionPausedState         Insertion-Enabled
+MessagesCurrentCount         0
+MessagesDeletedCurrentCount  0
+MessagesHighCount            0
+MessagesMovedCurrentCount    0
+MessagesPendingCount         0
+MessagesReceivedCount        0
+MessagesThresholdTime        0
+Parent                       [MBeanServerInvocationHandler]com.bea:ServerRuntime=c41_Desktop_MS1,Name=Desktop_c41_Desktop_MS1_JMSServer,Location=c41_Desktop_MS1,Type=JMSServerRuntime
+Paused                       0
+ProductionPaused             0
+ProductionPausedState        Production-Enabled
+State                        advertised_in_cluster_jndi
+Type                         JMSDestinationRuntime
+BytesCurrentCount            0
+BytesHighCount               0
+BytesPendingCount            0
+BytesReceivedCount           0
+BytesThresholdTime           0
+ConsumersCurrentCount        1
+ConsumersHighCount           1
+ConsumersTotalCount          1
+ConsumptionPausedState       Consumption-Enabled
+
+DestinationInfo              javax.management.openmbean.CompositeDataSupport(compositeType=javax.management.openmbean.CompositeType(name=DestinationInfo,items=((itemName=ApplicationName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ModuleName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Name,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Queue,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=SerializedDestination,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ServerName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Topic,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=VersionNumber,itemType=javax.management.openmbean.SimpleType(name=java.lang.Integer)))),contents={ApplicationName=DESKTOP-JMS-DEST, ModuleName=null, Name=DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS1_JMSServer@com.seic.common.cachewf.orchestrator.CacheReloadOrchestrator, Queue=true, SerializedDestination=rO0ABXNyACN3ZWJsb2dpYy5qbXMuY29tbW9uLkRlc3RpbmF0aW9uSW1wbFSmyJ1qZfv8DAAAeHB6AAABGrVBAG9ERVNLVE9QLUpNUy1ERVNUIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMxX0pNU1NlcnZlckBjb20uc2VpYy5jb21tb24uY2FjaGV3Zi5vcmNoZXN0cmF0b3IuQ2FjaGVSZWxvYWRPcmNoZXN0cmF0b3IAIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMxX0pNU1NlcnZlcgAQREVTS1RPUC1KTVMtREVTVAEAA0FsbAICcf9BWUe1BvAAAAAKAQAPYzQxX0Rlc2t0b3BfTVMxZkk/TQJx/0FZR7UG8AAAAA8BAA9jNDFfRGVza3RvcF9NUzFmST9NAAEAIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMxX0pEQkNTdG9yZXg=, ServerName=Desktop_c41_Desktop_MS1_JMSServer, Topic=false, VersionNumber=1})
+
+DestinationType              Queue
+InsertionPaused              0
+InsertionPausedState         Insertion-Enabled
+MessagesCurrentCount         0
+MessagesDeletedCurrentCount  0
+MessagesHighCount            0
+MessagesMovedCurrentCount    0
+MessagesPendingCount         0
+MessagesReceivedCount        0
+MessagesThresholdTime        0
+Parent                       [MBeanServerInvocationHandler]com.bea:ServerRuntime=c41_Desktop_MS1,Name=Desktop_c41_Desktop_MS1_JMSServer,Location=c41_Desktop_MS1,Type=JMSServerRuntime
+Paused                       0
+ProductionPaused             0
+ProductionPausedState        Production-Enabled
+State                        advertised_in_cluster_jndi
+Type                         JMSDestinationRuntime
+BytesCurrentCount            0
+BytesHighCount               0
+BytesPendingCount            0
+BytesReceivedCount           0
+BytesThresholdTime           0
+ConsumersCurrentCount        1
+ConsumersHighCount           1
+ConsumersTotalCount          1
+ConsumptionPausedState       Consumption-Enabled
+
+DestinationInfo              javax.management.openmbean.CompositeDataSupport(compositeType=javax.management.openmbean.CompositeType(name=DestinationInfo,items=((itemName=ApplicationName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ModuleName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Name,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Queue,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=SerializedDestination,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ServerName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Topic,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=VersionNumber,itemType=javax.management.openmbean.SimpleType(name=java.lang.Integer)))),contents={ApplicationName=DESKTOP-JMS-DEST, ModuleName=null, Name=DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS2_JMSServer@com.seic.common.cachewf.orchestrator.CacheReloadOrchestrator, Queue=true, SerializedDestination=rO0ABXNyACN3ZWJsb2dpYy5qbXMuY29tbW9uLkRlc3RpbmF0aW9uSW1wbFSmyJ1qZfv8DAAAeHB6AAABGrVBAG9ERVNLVE9QLUpNUy1ERVNUIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMyX0pNU1NlcnZlckBjb20uc2VpYy5jb21tb24uY2FjaGV3Zi5vcmNoZXN0cmF0b3IuQ2FjaGVSZWxvYWRPcmNoZXN0cmF0b3IAIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMyX0pNU1NlcnZlcgAQREVTS1RPUC1KTVMtREVTVAEAA0FsbAICNf9hWUe08LQAAAAKAQAPYzQxX0Rlc2t0b3BfTVMyowQBawI1/2FZR7TwtAAAAA8BAA9jNDFfRGVza3RvcF9NUzKjBAFrAAEAIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMyX0pEQkNTdG9yZXg=, ServerName=Desktop_c41_Desktop_MS2_JMSServer, Topic=false, VersionNumber=1})
+
+DestinationType              Queue
+InsertionPaused              0
+InsertionPausedState         Insertion-Enabled
+MessagesCurrentCount         0
+MessagesDeletedCurrentCount  0
+MessagesHighCount            0
+MessagesMovedCurrentCount    0
+MessagesPendingCount         0
+MessagesReceivedCount        0
+MessagesThresholdTime        0
+Parent                       [MBeanServerInvocationHandler]com.bea:ServerRuntime=c41_Desktop_MS2,Name=Desktop_c41_Desktop_MS2_JMSServer,Location=c41_Desktop_MS2,Type=JMSServerRuntime
+Paused                       0
+ProductionPaused             0
+ProductionPausedState        Production-Enabled
+State                        advertised_in_cluster_jndi
+Type                         JMSDestinationRuntime
+BytesCurrentCount            0
+BytesHighCount               0
+BytesPendingCount            0
+BytesReceivedCount           0
+BytesThresholdTime           0
+ConsumersCurrentCount        0
+ConsumersHighCount           0
+ConsumersTotalCount          0
+ConsumptionPausedState       Consumption-Enabled
+
+DestinationInfo              javax.management.openmbean.CompositeDataSupport(compositeType=javax.management.openmbean.CompositeType(name=DestinationInfo,items=((itemName=ApplicationName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ModuleName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Name,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Queue,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=SerializedDestination,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ServerName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Topic,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=VersionNumber,itemType=javax.management.openmbean.SimpleType(name=java.lang.Integer)))),contents={ApplicationName=DESKTOP-JMS-DEST, ModuleName=null, Name=DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS2_JMSServer@GMH.JMS.INPUT.QUEUE, Queue=true, SerializedDestination=rO0ABXNyACN3ZWJsb2dpYy5qbXMuY29tbW9uLkRlc3RpbmF0aW9uSW1wbFSmyJ1qZfv8DAAAeHB38bVBAEZERVNLVE9QLUpNUy1ERVNUIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMyX0pNU1NlcnZlckBHTUguSk1TLklOUFVULlFVRVVFACFEZXNrdG9wX2M0MV9EZXNrdG9wX01TMl9KTVNTZXJ2ZXIAEERFU0tUT1AtSk1TLURFU1QBAANBbGwCAjX/YVlHtPC0AAAACgEAD2M0MV9EZXNrdG9wX01TMqMEAWsCNf9hWUe08LQAAAARAQAPYzQxX0Rlc2t0b3BfTVMyowQBawABACFEZXNrdG9wX2M0MV9EZXNrdG9wX01TMl9KREJDU3RvcmV4, ServerName=Desktop_c41_Desktop_MS2_JMSServer, Topic=false, VersionNumber=1})
+
+DestinationType              Queue
+InsertionPaused              0
+InsertionPausedState         Insertion-Enabled
+MessagesCurrentCount         0
+MessagesDeletedCurrentCount  0
+MessagesHighCount            0
+MessagesMovedCurrentCount    0
+MessagesPendingCount         0
+MessagesReceivedCount        0
+MessagesThresholdTime        0
+Parent                       [MBeanServerInvocationHandler]com.bea:ServerRuntime=c41_Desktop_MS2,Name=Desktop_c41_Desktop_MS2_JMSServer,Location=c41_Desktop_MS2,Type=JMSServerRuntime
+Paused                       0
+ProductionPaused             0
+ProductionPausedState        Production-Enabled
+State                        advertised_in_cluster_jndi
+Type                         JMSDestinationRuntime
+BytesCurrentCount            0
+BytesHighCount               0
+BytesPendingCount            0
+BytesReceivedCount           0
+BytesThresholdTime           0
+ConsumersCurrentCount        10
+ConsumersHighCount           10
+ConsumersTotalCount          10
+ConsumptionPausedState       Consumption-Enabled
+
+DestinationInfo              javax.management.openmbean.CompositeDataSupport(compositeType=javax.management.openmbean.CompositeType(name=DestinationInfo,items=((itemName=ApplicationName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ModuleName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Name,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Queue,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=SerializedDestination,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ServerName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Topic,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=VersionNumber,itemType=javax.management.openmbean.SimpleType(name=java.lang.Integer)))),contents={ApplicationName=DESKTOP-JMS-DEST, ModuleName=null, Name=DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS2_JMSServer@com.seic.common.cachewf.orchestrator.LaserAppFormFeedOrchestrator, Queue=true, SerializedDestination=rO0ABXNyACN3ZWJsb2dpYy5qbXMuY29tbW9uLkRlc3RpbmF0aW9uSW1wbFSmyJ1qZfv8DAAAeHB6AAABH7VBAHRERVNLVE9QLUpNUy1ERVNUIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMyX0pNU1NlcnZlckBjb20uc2VpYy5jb21tb24uY2FjaGV3Zi5vcmNoZXN0cmF0b3IuTGFzZXJBcHBGb3JtRmVlZE9yY2hlc3RyYXRvcgAhRGVza3RvcF9jNDFfRGVza3RvcF9NUzJfSk1TU2VydmVyABBERVNLVE9QLUpNUy1ERVNUAQADQWxsAgI1/2FZR7TwtAAAAAoBAA9jNDFfRGVza3RvcF9NUzKjBAFrAjX/YVlHtPC0AAAAEAEAD2M0MV9EZXNrdG9wX01TMqMEAWsAAQAhRGVza3RvcF9jNDFfRGVza3RvcF9NUzJfSkRCQ1N0b3JleA==, ServerName=Desktop_c41_Desktop_MS2_JMSServer, Topic=false, VersionNumber=1})
+
+DestinationType              Queue
+InsertionPaused              0
+InsertionPausedState         Insertion-Enabled
+MessagesCurrentCount         0
+MessagesDeletedCurrentCount  0
+MessagesHighCount            0
+MessagesMovedCurrentCount    0
+MessagesPendingCount         0
+MessagesReceivedCount        0
+MessagesThresholdTime        0
+Parent                       [MBeanServerInvocationHandler]com.bea:ServerRuntime=c41_Desktop_MS2,Name=Desktop_c41_Desktop_MS2_JMSServer,Location=c41_Desktop_MS2,Type=JMSServerRuntime
+Paused                       0
+ProductionPaused             0
+ProductionPausedState        Production-Enabled
+State                        advertised_in_cluster_jndi
+Type                         JMSDestinationRuntime
+wldev: {/tmp}->
+
+
+================== WLST LOGS ==============
+OMAIN HOME : [/apps/bea/domains/c41GWMP_Desktop]
+
+Initializing WebLogic Scripting Tool (WLST) ...
+
+warning: /home/wldev/.jython is a directory, not a file
+WARNING - Unable to create log file </nas/apps/bea/fusion11g/software/modules/../logs/wlst_20170216075322.log>: java.io.IOException: Permission denied
+Welcome to WebLogic Server Administration Scripting Shell
+
+Type help() for help on available commands
+
+Loading connect.properties
+Could not find the properties file to load properties from connect.properties.
+Connecting to t3://SEIDEVC41WLS01.GWPDEV.SEIC.COM:8001 with userid admin ...
+Successfully connected to Admin Server 'adminServer' that belongs to domain 'c41GWMP_Desktop'.
+
+Warning: An insecure protocol was used to connect to the
+server. To ensure on-the-wire security, the SSL port or
+Admin port should be used instead.
+
+
+You have chosen to ease syntax for some WLST commands.
+However, the easy syntax should be strictly used in
+interactive mode. Easy syntax will not function properly in
+script mode and when used in loops. You can still use the
+regular jython syntax although you have opted for easy
+syntax.
+Use easeSyntax to turn this off.
+Use help(easeSyntax) for commands that support easy syntax
+MODULE= DESKTOP-JMS-DEST
+MODULE= DESKTOP-JMS-CF
+MODULE= DESKTOP-JMS-DEST QUEUE com.seic.common.cachewf.orchestrator.CacheReloadOrchestrator  JNDINAME com.seic.common.cachewf.orchestrator.CacheReloadOrchestrator
+MODULE= DESKTOP-JMS-DEST QUEUE com.seic.common.cachewf.orchestrator.LaserAppFormFeedOrchestrator  JNDINAME com.seic.common.cachewf.orchestrator.LaserAppFormFeedOrchestrator
+MODULE= DESKTOP-JMS-DEST QUEUE GMH.JMS.INPUT.QUEUE  JNDINAME GMH.JMS.INPUT.QUEUE
+wldev: {/apps/bea/domains/c41GWMP_Desktop}->
+
+
+
+
+
+
+
+
+
+=========================
+Permission denied
+Welcome to WebLogic Server Administration Scripting Shell
+
+Type help() for help on available commands
+
+Loading connect.properties
+Could not find the properties file to load properties from connect.properties.
+Connecting to t3://SEIDEVC41WLS01.GWPDEV.SEIC.COM:8001 with userid admin ...
+Successfully connected to Admin Server 'adminServer' that belongs to domain 'c41GWMP_Desktop'.
+
+Warning: An insecure protocol was used to connect to the
+server. To ensure on-the-wire security, the SSL port or
+Admin port should be used instead.
+
+[MBeanServerInvocationHandler]com.bea:Name=adminServer,Location=adminServer,Type=ServerRuntime====================
+[MBeanServerInvocationHandler]com.bea:Name=c41_Desktop_MS1,Location=c41_Desktop_MS1,Type=ServerRuntime====================
+[MBeanServerInvocationHandler]com.bea:ServerRuntime=c41_Desktop_MS1,Name=Desktop_c41_Desktop_MS1_JMSServer,Location=c41_Desktop_MS1,Type=JMSServerRuntime#########
+BytesCurrentCount            0
+BytesHighCount               0
+BytesPendingCount            0
+BytesReceivedCount           0
+BytesThresholdTime           0
+ConsumersCurrentCount        10
+ConsumersHighCount           10
+ConsumersTotalCount          10
+ConsumptionPausedState       Consumption-Enabled
+
+DestinationInfo              javax.management.openmbean.CompositeDataSupport(compositeType=javax.management.openmbean.CompositeType(name=DestinationInfo,items=((itemName=ApplicationName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ModuleName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Name,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Queue,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=SerializedDestination,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ServerName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Topic,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=VersionNumber,itemType=javax.management.openmbean.SimpleType(name=java.lang.Integer)))),contents={ApplicationName=DESKTOP-JMS-DEST, ModuleName=null, Name=DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS1_JMSServer@com.seic.common.cachewf.orchestrator.LaserAppFormFeedOrchestrator, Queue=true, SerializedDestination=rO0ABXNyACN3ZWJsb2dpYy5qbXMuY29tbW9uLkRlc3RpbmF0aW9uSW1wbFSmyJ1qZfv8DAAAeHB6AAABH7VBAHRERVNLVE9QLUpNUy1ERVNUIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMxX0pNU1NlcnZlckBjb20uc2VpYy5jb21tb24uY2FjaGV3Zi5vcmNoZXN0cmF0b3IuTGFzZXJBcHBGb3JtRmVlZE9yY2hlc3RyYXRvcgAhRGVza3RvcF9jNDFfRGVza3RvcF9NUzFfSk1TU2VydmVyABBERVNLVE9QLUpNUy1ERVNUAQADQWxsAgJx/0FZR7UG8AAAAAoBAA9jNDFfRGVza3RvcF9NUzFmST9NAnH/QVlHtQbwAAAAEAEAD2M0MV9EZXNrdG9wX01TMWZJP00AAQAhRGVza3RvcF9jNDFfRGVza3RvcF9NUzFfSkRCQ1N0b3JleA==, ServerName=Desktop_c41_Desktop_MS1_JMSServer, Topic=false, VersionNumber=1})
+
+DestinationType              Queue
+InsertionPaused              0
+InsertionPausedState         Insertion-Enabled
+MessagesCurrentCount         0
+MessagesDeletedCurrentCount  0
+MessagesHighCount            0
+MessagesMovedCurrentCount    0
+MessagesPendingCount         0
+MessagesReceivedCount        0
+MessagesThresholdTime        0
+Parent                       [MBeanServerInvocationHandler]com.bea:ServerRuntime=c41_Desktop_MS1,Name=Desktop_c41_Desktop_MS1_JMSServer,Location=c41_Desktop_MS1,Type=JMSServerRuntime
+Paused                       0
+ProductionPaused             0
+ProductionPausedState        Production-Enabled
+State                        advertised_in_cluster_jndi
+Type                         JMSDestinationRuntime
+BytesCurrentCount            0
+BytesHighCount               0
+BytesPendingCount            0
+BytesReceivedCount           0
+BytesThresholdTime           0
+ConsumersCurrentCount        0
+ConsumersHighCount           0
+ConsumersTotalCount          0
+ConsumptionPausedState       Consumption-Enabled
+
+DestinationInfo              javax.management.openmbean.CompositeDataSupport(compositeType=javax.management.openmbean.CompositeType(name=DestinationInfo,items=((itemName=ApplicationName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ModuleName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Name,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Queue,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=SerializedDestination,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ServerName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Topic,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=VersionNumber,itemType=javax.management.openmbean.SimpleType(name=java.lang.Integer)))),contents={ApplicationName=DESKTOP-JMS-DEST, ModuleName=null, Name=DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS1_JMSServer@GMH.JMS.INPUT.QUEUE, Queue=true, SerializedDestination=rO0ABXNyACN3ZWJsb2dpYy5qbXMuY29tbW9uLkRlc3RpbmF0aW9uSW1wbFSmyJ1qZfv8DAAAeHB38bVBAEZERVNLVE9QLUpNUy1ERVNUIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMxX0pNU1NlcnZlckBHTUguSk1TLklOUFVULlFVRVVFACFEZXNrdG9wX2M0MV9EZXNrdG9wX01TMV9KTVNTZXJ2ZXIAEERFU0tUT1AtSk1TLURFU1QBAANBbGwCAnH/QVlHtQbwAAAACgEAD2M0MV9EZXNrdG9wX01TMWZJP00Ccf9BWUe1BvAAAAARAQAPYzQxX0Rlc2t0b3BfTVMxZkk/TQABACFEZXNrdG9wX2M0MV9EZXNrdG9wX01TMV9KREJDU3RvcmV4, ServerName=Desktop_c41_Desktop_MS1_JMSServer, Topic=false, VersionNumber=1})
+
+DestinationType              Queue
+InsertionPaused              0
+InsertionPausedState         Insertion-Enabled
+MessagesCurrentCount         0
+MessagesDeletedCurrentCount  0
+MessagesHighCount            0
+MessagesMovedCurrentCount    0
+MessagesPendingCount         0
+MessagesReceivedCount        0
+MessagesThresholdTime        0
+Parent                       [MBeanServerInvocationHandler]com.bea:ServerRuntime=c41_Desktop_MS1,Name=Desktop_c41_Desktop_MS1_JMSServer,Location=c41_Desktop_MS1,Type=JMSServerRuntime
+Paused                       0
+ProductionPaused             0
+ProductionPausedState        Production-Enabled
+State                        advertised_in_cluster_jndi
+Type                         JMSDestinationRuntime
+BytesCurrentCount            0
+BytesHighCount               0
+BytesPendingCount            0
+BytesReceivedCount           0
+BytesThresholdTime           0
+ConsumersCurrentCount        1
+ConsumersHighCount           1
+ConsumersTotalCount          1
+ConsumptionPausedState       Consumption-Enabled
+
+DestinationInfo              javax.management.openmbean.CompositeDataSupport(compositeType=javax.management.openmbean.CompositeType(name=DestinationInfo,items=((itemName=ApplicationName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ModuleName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Name,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Queue,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=SerializedDestination,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ServerName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Topic,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=VersionNumber,itemType=javax.management.openmbean.SimpleType(name=java.lang.Integer)))),contents={ApplicationName=DESKTOP-JMS-DEST, ModuleName=null, Name=DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS1_JMSServer@com.seic.common.cachewf.orchestrator.CacheReloadOrchestrator, Queue=true, SerializedDestination=rO0ABXNyACN3ZWJsb2dpYy5qbXMuY29tbW9uLkRlc3RpbmF0aW9uSW1wbFSmyJ1qZfv8DAAAeHB6AAABGrVBAG9ERVNLVE9QLUpNUy1ERVNUIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMxX0pNU1NlcnZlckBjb20uc2VpYy5jb21tb24uY2FjaGV3Zi5vcmNoZXN0cmF0b3IuQ2FjaGVSZWxvYWRPcmNoZXN0cmF0b3IAIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMxX0pNU1NlcnZlcgAQREVTS1RPUC1KTVMtREVTVAEAA0FsbAICcf9BWUe1BvAAAAAKAQAPYzQxX0Rlc2t0b3BfTVMxZkk/TQJx/0FZR7UG8AAAAA8BAA9jNDFfRGVza3RvcF9NUzFmST9NAAEAIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMxX0pEQkNTdG9yZXg=, ServerName=Desktop_c41_Desktop_MS1_JMSServer, Topic=false, VersionNumber=1})
+
+DestinationType              Queue
+InsertionPaused              0
+InsertionPausedState         Insertion-Enabled
+MessagesCurrentCount         0
+MessagesDeletedCurrentCount  0
+MessagesHighCount            0
+MessagesMovedCurrentCount    0
+MessagesPendingCount         0
+MessagesReceivedCount        0
+MessagesThresholdTime        0
+Parent                       [MBeanServerInvocationHandler]com.bea:ServerRuntime=c41_Desktop_MS1,Name=Desktop_c41_Desktop_MS1_JMSServer,Location=c41_Desktop_MS1,Type=JMSServerRuntime
+Paused                       0
+ProductionPaused             0
+ProductionPausedState        Production-Enabled
+State                        advertised_in_cluster_jndi
+Type                         JMSDestinationRuntime
+[MBeanServerInvocationHandler]com.bea:Name=c41_Desktop_MS2,Location=c41_Desktop_MS2,Type=ServerRuntime====================
+[MBeanServerInvocationHandler]com.bea:ServerRuntime=c41_Desktop_MS2,Name=Desktop_c41_Desktop_MS2_JMSServer,Location=c41_Desktop_MS2,Type=JMSServerRuntime#########
+BytesCurrentCount            0
+BytesHighCount               0
+BytesPendingCount            0
+BytesReceivedCount           0
+BytesThresholdTime           0
+ConsumersCurrentCount        1
+ConsumersHighCount           1
+ConsumersTotalCount          1
+ConsumptionPausedState       Consumption-Enabled
+
+DestinationInfo              javax.management.openmbean.CompositeDataSupport(compositeType=javax.management.openmbean.CompositeType(name=DestinationInfo,items=((itemName=ApplicationName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ModuleName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Name,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Queue,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=SerializedDestination,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ServerName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Topic,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=VersionNumber,itemType=javax.management.openmbean.SimpleType(name=java.lang.Integer)))),contents={ApplicationName=DESKTOP-JMS-DEST, ModuleName=null, Name=DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS2_JMSServer@com.seic.common.cachewf.orchestrator.CacheReloadOrchestrator, Queue=true, SerializedDestination=rO0ABXNyACN3ZWJsb2dpYy5qbXMuY29tbW9uLkRlc3RpbmF0aW9uSW1wbFSmyJ1qZfv8DAAAeHB6AAABGrVBAG9ERVNLVE9QLUpNUy1ERVNUIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMyX0pNU1NlcnZlckBjb20uc2VpYy5jb21tb24uY2FjaGV3Zi5vcmNoZXN0cmF0b3IuQ2FjaGVSZWxvYWRPcmNoZXN0cmF0b3IAIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMyX0pNU1NlcnZlcgAQREVTS1RPUC1KTVMtREVTVAEAA0FsbAICNf9hWUe08LQAAAAKAQAPYzQxX0Rlc2t0b3BfTVMyowQBawI1/2FZR7TwtAAAAA8BAA9jNDFfRGVza3RvcF9NUzKjBAFrAAEAIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMyX0pEQkNTdG9yZXg=, ServerName=Desktop_c41_Desktop_MS2_JMSServer, Topic=false, VersionNumber=1})
+
+DestinationType              Queue
+InsertionPaused              0
+InsertionPausedState         Insertion-Enabled
+MessagesCurrentCount         0
+MessagesDeletedCurrentCount  0
+MessagesHighCount            0
+MessagesMovedCurrentCount    0
+MessagesPendingCount         0
+MessagesReceivedCount        0
+MessagesThresholdTime        0
+Parent                       [MBeanServerInvocationHandler]com.bea:ServerRuntime=c41_Desktop_MS2,Name=Desktop_c41_Desktop_MS2_JMSServer,Location=c41_Desktop_MS2,Type=JMSServerRuntime
+Paused                       0
+ProductionPaused             0
+ProductionPausedState        Production-Enabled
+State                        advertised_in_cluster_jndi
+Type                         JMSDestinationRuntime
+BytesCurrentCount            0
+BytesHighCount               0
+BytesPendingCount            0
+BytesReceivedCount           0
+BytesThresholdTime           0
+ConsumersCurrentCount        0
+ConsumersHighCount           0
+ConsumersTotalCount          0
+ConsumptionPausedState       Consumption-Enabled
+
+DestinationInfo              javax.management.openmbean.CompositeDataSupport(compositeType=javax.management.openmbean.CompositeType(name=DestinationInfo,items=((itemName=ApplicationName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ModuleName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Name,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Queue,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=SerializedDestination,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ServerName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Topic,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=VersionNumber,itemType=javax.management.openmbean.SimpleType(name=java.lang.Integer)))),contents={ApplicationName=DESKTOP-JMS-DEST, ModuleName=null, Name=DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS2_JMSServer@GMH.JMS.INPUT.QUEUE, Queue=true, SerializedDestination=rO0ABXNyACN3ZWJsb2dpYy5qbXMuY29tbW9uLkRlc3RpbmF0aW9uSW1wbFSmyJ1qZfv8DAAAeHB38bVBAEZERVNLVE9QLUpNUy1ERVNUIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMyX0pNU1NlcnZlckBHTUguSk1TLklOUFVULlFVRVVFACFEZXNrdG9wX2M0MV9EZXNrdG9wX01TMl9KTVNTZXJ2ZXIAEERFU0tUT1AtSk1TLURFU1QBAANBbGwCAjX/YVlHtPC0AAAACgEAD2M0MV9EZXNrdG9wX01TMqMEAWsCNf9hWUe08LQAAAARAQAPYzQxX0Rlc2t0b3BfTVMyowQBawABACFEZXNrdG9wX2M0MV9EZXNrdG9wX01TMl9KREJDU3RvcmV4, ServerName=Desktop_c41_Desktop_MS2_JMSServer, Topic=false, VersionNumber=1})
+
+DestinationType              Queue
+InsertionPaused              0
+InsertionPausedState         Insertion-Enabled
+MessagesCurrentCount         0
+MessagesDeletedCurrentCount  0
+MessagesHighCount            0
+MessagesMovedCurrentCount    0
+MessagesPendingCount         0
+MessagesReceivedCount        0
+MessagesThresholdTime        0
+Parent                       [MBeanServerInvocationHandler]com.bea:ServerRuntime=c41_Desktop_MS2,Name=Desktop_c41_Desktop_MS2_JMSServer,Location=c41_Desktop_MS2,Type=JMSServerRuntime
+Paused                       0
+ProductionPaused             0
+ProductionPausedState        Production-Enabled
+State                        advertised_in_cluster_jndi
+Type                         JMSDestinationRuntime
+BytesCurrentCount            0
+BytesHighCount               0
+BytesPendingCount            0
+BytesReceivedCount           0
+BytesThresholdTime           0
+ConsumersCurrentCount        10
+ConsumersHighCount           10
+ConsumersTotalCount          10
+ConsumptionPausedState       Consumption-Enabled
+
+DestinationInfo              javax.management.openmbean.CompositeDataSupport(compositeType=javax.management.openmbean.CompositeType(name=DestinationInfo,items=((itemName=ApplicationName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ModuleName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Name,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Queue,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=SerializedDestination,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=ServerName,itemType=javax.management.openmbean.SimpleType(name=java.lang.String)),(itemName=Topic,itemType=javax.management.openmbean.SimpleType(name=java.lang.Boolean)),(itemName=VersionNumber,itemType=javax.management.openmbean.SimpleType(name=java.lang.Integer)))),contents={ApplicationName=DESKTOP-JMS-DEST, ModuleName=null, Name=DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS2_JMSServer@com.seic.common.cachewf.orchestrator.LaserAppFormFeedOrchestrator, Queue=true, SerializedDestination=rO0ABXNyACN3ZWJsb2dpYy5qbXMuY29tbW9uLkRlc3RpbmF0aW9uSW1wbFSmyJ1qZfv8DAAAeHB6AAABH7VBAHRERVNLVE9QLUpNUy1ERVNUIURlc2t0b3BfYzQxX0Rlc2t0b3BfTVMyX0pNU1NlcnZlckBjb20uc2VpYy5jb21tb24uY2FjaGV3Zi5vcmNoZXN0cmF0b3IuTGFzZXJBcHBGb3JtRmVlZE9yY2hlc3RyYXRvcgAhRGVza3RvcF9jNDFfRGVza3RvcF9NUzJfSk1TU2VydmVyABBERVNLVE9QLUpNUy1ERVNUAQADQWxsAgI1/2FZR7TwtAAAAAoBAA9jNDFfRGVza3RvcF9NUzKjBAFrAjX/YVlHtPC0AAAAEAEAD2M0MV9EZXNrdG9wX01TMqMEAWsAAQAhRGVza3RvcF9jNDFfRGVza3RvcF9NUzJfSkRCQ1N0b3JleA==, ServerName=Desktop_c41_Desktop_MS2_JMSServer, Topic=false, VersionNumber=1})
+
+DestinationType              Queue
+InsertionPaused              0
+InsertionPausedState         Insertion-Enabled
+MessagesCurrentCount         0
+MessagesDeletedCurrentCount  0
+MessagesHighCount            0
+MessagesMovedCurrentCount    0
+MessagesPendingCount         0
+MessagesReceivedCount        0
+MessagesThresholdTime        0
+Parent                       [MBeanServerInvocationHandler]com.bea:ServerRuntime=c41_Desktop_MS2,Name=Desktop_c41_Desktop_MS2_JMSServer,Location=c41_Desktop_MS2,Type=JMSServerRuntime
+Paused                       0
+ProductionPaused             0
+ProductionPausedState        Production-Enabled
+State                        advertised_in_cluster_jndi
+Type                         JMSDestinationRuntime
+wldev: {/apps/bea/domains/c41GWMP_Desktop}-> ^B]
+
+
+
+
+
+
+['JMSDurableSubscriberRuntimes',
+ 'MBeanInfo',
+ 'addNotificationListener',
+ 'addPropertyChangeListener',
+ 'attribute',
+ 'attributes',
+ 'bytesCurrentCount',
+ 'bytesHighCount',
+ 'bytesPendingCount',
+ 'bytesReceivedCount',
+ 'bytesThresholdTime',
+ 'cachingDisabled',
+ 'class',
+ 'closeCursor',
+ 'consumersCurrentCount',
+ 'consumersHighCount',
+ 'consumersTotalCount',
+ 'consumptionPaused',
+ 'consumptionPausedState',
+ 'createDurableSubscriber',
+ 'deleteMessages',
+ 'destination',
+ 'destinationInfo',
+ 'destinationType',
+ 'destroyJMSDurableSubscriberRuntime',
+ 'durableSubscribers',
+ 'equals',
+ 'getAttribute',
+ 'getAttributes',
+ 'getBytesCurrentCount',
+ 'getBytesHighCount',
+ 'getBytesPendingCount',
+ 'getBytesReceivedCount',
+ 'getBytesThresholdTime',
+ 'getClass',
+ 'getConsumersCurrentCount',
+ 'getConsumersHighCount',
+ 'getConsumersTotalCount',
+ 'getConsumptionPausedState',
+ 'getCursorEndPosition',
+ 'getCursorSize',
+ 'getCursorStartPosition',
+ 'getDestination',
+ 'getDestinationInfo',
+ 'getDestinationType',
+ 'getDurableSubscribers',
+ 'getInsertionPausedState',
+ 'getInvocationHandler',
+ 'getItems',
+ 'getJMSDurableSubscriberRuntimes',
+ 'getMBeanInfo',
+ 'getMessage',
+ 'getMessages',
+ 'getMessagesCurrentCount',
+ 'getMessagesDeletedCurrentCount',
+ 'getMessagesHighCount',
+ 'getMessagesMovedCurrentCount',
+ 'getMessagesPendingCount',
+ 'getMessagesReceivedCount',
+ 'getMessagesThresholdTime',
+ 'getName',
+ 'getNext',
+ 'getNotificationInfo',
+ 'getObjectName',
+ 'getParent',
+ 'getPrevious',
+ 'getProductionPausedState',
+ 'getProxyClass',
+ 'getState',
+ 'getType',
+ 'hashCode',
+ 'importMessages',
+ 'insertionPaused',
+ 'insertionPausedState',
+ 'invoke',
+ 'isCachingDisabled',
+ 'isConsumptionPaused',
+ 'isInsertionPaused',
+ 'isMessageLogging',
+ 'isPaused',
+ 'isProductionPaused',
+ 'isProxyClass',
+ 'isRegistered',
+ 'lowMemory',
+ 'messageLogging',
+ 'messagesCurrentCount',
+ 'messagesDeletedCurrentCount',
+ 'messagesHighCount',
+ 'messagesMovedCurrentCount',
+ 'messagesPendingCount',
+ 'messagesReceivedCount',
+ 'messagesThresholdTime',
+ 'moveMessages',
+ 'mydelete',
+ 'name',
+ 'newProxyInstance',
+ 'normalMemory',
+ 'notificationInfo',
+ 'notify',
+ 'notifyAll',
+ 'objectName',
+ 'parent',
+ 'pause',
+ 'pauseConsumption',
+ 'pauseInsertion',
+ 'pauseProduction',
+ 'paused',
+ 'postDeregister',
+ 'postRegister',
+ 'preDeregister',
+ 'preRegister',
+ 'productionPaused',
+ 'productionPausedState',
+ 'propertyChange',
+ 'propertyChangeListener',
+ 'registered',
+ 'removeNotificationListener',
+ 'removePropertyChangeListener',
+ 'resume',
+ 'resumeConsumption',
+ 'resumeInsertion',
+ 'resumeMessageLogging',
+ 'resumeProduction',
+ 'setAttribute',
+ 'setAttributes',
+ 'setName',
+ 'setParent',
+ 'sort',
+ 'state',
+ 'suspendMessageLogging',
+ 'toString',
+ 'type',
+ 'wait']
+
+
+p_MS2_JMSServer
+Name: %s DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS2_JMSServer@com.seic.common.cachewf.orchestrator.LaserAppFormFeedOrchestrator
+
