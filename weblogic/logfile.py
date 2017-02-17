@@ -39,6 +39,7 @@ for x in servers:
         save()
         activate()
         print ' '
+        
         print ' '
         ls()
     except java.lang.Exception, ex:
