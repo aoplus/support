@@ -1,22 +1,45 @@
 from sys import argv
 execfile('jython/connect.py')
 
-qname = argv[1]  # Take the argument from command line
-servers = domainRuntimeService.getServerRuntimes(); # check the servers and keep it in servers vriable, the server is going to be a list, i.e. there would be multiple servers.
-if (len(servers) > 0): # check if the there are more tahn 0 server. i.e. this is a check to ensure we are only checking the server.
-    for server in servers: # now we iterate over servers.
-        jmsRuntime = server.getJMSRuntime(); # from the server, get the server JMSRuntime info
-        jmsServers = jmsRuntime.getJMSServers(); # from every server collect the JMS servers, i.e. JMS=Java Messaging service 
-        for jmsServer in jmsServers: #now iterate overjmsservers
-            destinations = jmsServer.getDestinations(); # collect the JMSserverDestination, which is c41_gwm_desktop!c41_GWMP_Desktop_MS1 etc.
-            for destination in destinations: #iterate over the detstination
-                destname = destination.getName() # add the desinationname in destination variable.
-                if qname in destname: #check wether the argument given on command line matches the quename.
-                    if destination.getMessagesCurrentCount() > 0: # if the above match works, then check the message count, if the message count is more than 0, 
-                        msgcnt = destination.getMessagesCurrentCount() # get the no. of matches att this into a variable.
-                        print "No. of current messages in queue:", msgcnt # print the no. of sg present.
+#query qname, if the message count in qname is 0, print the msgcnt as 0, if the msg count in qname is more than 0, delete messages.
+
+qname = argv[1]
+domainname = ['c41_Desktop_MS1', 'c41_Desktop_MS2']
+qnames = ['com.seic.common.cachewf.orchestrator.LaserAppFormFeedOrchestrator', 'com.seic.common.cachewf.orchestrator.CacheReloadOrchestrator']
+destname = ['DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS1_JMSServer@com.seic.common.cachewf.orchestrator.CacheReloadOrchestrator', 'DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS1_JMSServer@com.seic.common.cachewf.orchestrator.LaserAppFormFeedOrchestrator']
+dest1stpart = 'DESKTOP-JMS-DEST'
+
+def makeDestName(x, y, z):
+    """ Create destination name to cd to.
+    x = domainname
+    y = dest1stpart
+    z = qname
+    """
+    destName = y + '!Desktop'+x+'_JMSServer@' +z
+    path = 'ServerRuntimes/' + x + '/JMSRuntime/' + x + ".jms/JMSServers" + x + "_JMSServer/Destinations" + destname
+    return destName()
+
+def chkMsgsCnt():
+    if getMessagesCurrentCount() >0:
+        print "%s: Current Msg Count is %s", (qname, getMessagesCurrentCount())
+    if getMessgaesHighCount() >0:
+        print "%s: Current Msg Count is %s", (qname, getMessagesCurrentCount())
+        
+servers = domainRuntimeService.getServerRuntimes();
+if (len(servers) > 0):
+    for server in servers:
+        jmsRuntime = server.getJMSRuntime();
+        jmsServers = jmsRuntime.getJMSServers();
+        for jmsServer in jmsServers:
+            destinations = jmsServer.getDestinations();
+            for destination in destinations:
+                destname = destination.getName()
+                if qname in destname:
+                    if destination.getMessagesCurrentCount() > 0:
+                        msgcnt = destination.getMessagesCurrentCount()
+                        print "No. of current messages in queue:", msgcnt
                         print "Deleting Messages"
-                        destination.deleteMessages() # Delete the messages from the message queues.
+                        destination.deleteMessages()
                         print "No. of Messages Deleted:" , msgcnt
                     else:
-                        print "There are" + destination.getMessageCurrentCount() + "messages in the queue" # if the destionation.getMessagecurrentCount is 0 just print this line, saying there are no messages.
+                        print "There are" + destination.getMessageCurrentCount() + "messages in the queue"
