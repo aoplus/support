@@ -17,13 +17,26 @@ def makeDestName(x, y, z):
     """
     destName = y + '!Desktop'+x+'_JMSServer@' +z
     path = 'ServerRuntimes/' + x + '/JMSRuntime/' + x + ".jms/JMSServers" + x + "_JMSServer/Destinations" + destname
-    return destName()
+    print destName()
+    print path()
 
-def chkMsgsCnt():
+def chkMsgsCnt(z):
+    cd(x);
     if getMessagesCurrentCount() >0:
-        print "%s: Current Msg Count is %s", (qname, getMessagesCurrentCount())
+        cmsgcnt = getMessagesCurrentCount();
+        print "%s: Current Msg Count is %s", %(qname, cmsgcnt())
+        print "Deleting %s current messages", %(cmsgcnt)
+    else:
+        print "%s: Current Msg Count is %s", %(qname, getMessagesCurrentCount())
     if getMessgaesHighCount() >0:
-        print "%s: Current Msg Count is %s", (qname, getMessagesCurrentCount())
+        hmsgcnt = getMessagesHighCount();
+        print "%s: High Msg Count is %s", (qname, hmsgcnt())
+        print "Deleting %s high messages", %(hmsgcnt)
+    else:
+        print "%s: current msg count is %s", (qname, getMessagesCurrentCount())
+
+
+
         
 servers = domainRuntimeService.getServerRuntimes();
 if (len(servers) > 0):
