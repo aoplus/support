@@ -23,7 +23,7 @@ def chkdelCurMsgCnt():
         cmsgcnt = cmo.getMessagesCurrentCount();
         print "%s: Current Msg Count is %s", (qname, cmsgcnt)
         print "Deleting %s current messages", cmsgcnt
-#        cmo.deleteMessages('')
+        cmo.deleteMessages('')
     else:
         print "%s: Current Msg Count is %s",  (qname, cmo.getMessagesCurrentCount())
 
