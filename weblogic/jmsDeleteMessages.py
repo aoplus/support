@@ -1,11 +1,11 @@
 from sys import argv
-# execfile('jython/connect.py')
+execfile('jython/connect.py')
 
 #query qname, if the message count in qname is 0, print the msgcnt as 0, if the msg count in qname is more than 0, delete messages.
 
 qname = argv[1]
 domainname = ['c41_Desktop_MS1', 'c41_Desktop_MS2']
-qnames = ['com.seic.common.cachewf.orchestrator.LaserAppFormFeedOrchestrator', 'com.seic.common.cachewf.orchestrator.CacheReloadOrchestrator']
+qnames = ['com.seic.common.cachewf.orchestrator.LaserAppFormFeedOrchestrator', 'com.seic.common.cachewf.orchestrator.CacheReloadOrchestrator', 'GMH.JMS.INPUT.QUEUE']
 # destname = ['DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS1_JMSServer@com.seic.common.cachewf.orchestrator.CacheReloadOrchestrator', 'DESKTOP-JMS-DEST!Desktop_c41_Desktop_MS1_JMSServer@com.seic.common.cachewf.orchestrator.LaserAppFormFeedOrchestrator']
 # dest1stpart = 'DESKTOP-JMS-DEST'
 
