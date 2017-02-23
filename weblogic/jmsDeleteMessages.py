@@ -43,7 +43,7 @@ if qname in qnames:
         print qpath
         bean = getMBean(qpath)
         print bean
-        cd(qpath)
+        # cd(qpath)
         chkdelCurMsgCnt()
 ##############################################################################################################
 # servers = domainRuntimeService.getServerRuntimes();                                                        #
