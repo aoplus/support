@@ -19,7 +19,7 @@ def makeDestName(x,z):
     print path
 
 def chkdelCurMsgCnt():
-    if getMessagesCurrentCount() >0:
+    if getMessagesPendingCount() >0:
         cmsgcnt = cmo.getMessagesCurrentCount();
         print "%s: Current Msg Count is %s", (qname, cmsgcnt)
         print "Deleting %s current messages", cmsgcnt
@@ -43,7 +43,7 @@ if qname in qnames:
         print qpath
         bean = getMBean(qpath)
         print bean
-        # cd(qpath)
+        # cd (qpath)
         chkdelCurMsgCnt()
 ##############################################################################################################
 # servers = domainRuntimeService.getServerRuntimes();                                                        #
