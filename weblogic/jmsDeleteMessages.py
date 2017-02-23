@@ -40,10 +40,7 @@ def chkdelHighMgcnt():
 if qname in qnames:
     for domain in domainname:
         qpath = makeDestName(domain, qname)
-        print qpath
-        bean = getMBean(qpath)
-        print bean
-        # cd (qpath)
+        cd (qpath)
         chkdelCurMsgCnt()
 ##############################################################################################################
 # servers = domainRuntimeService.getServerRuntimes();                                                        #
