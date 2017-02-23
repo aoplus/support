@@ -40,7 +40,7 @@ def chkdelHighMgcnt():
 if qname in qnames:
     for domain in domainname:
         qpath = makeDestName(domain, qname)
-        cd (qpath)
+        cd ('%s') % qpath
         chkdelCurMsgCnt()
 ##############################################################################################################
 # servers = domainRuntimeService.getServerRuntimes();                                                        #
