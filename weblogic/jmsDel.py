@@ -11,5 +11,7 @@ for jmsserver in jmsservers:
     print "ServerRuntimes/%s/JMSRuntime/%s.jms/JMSServers/%s/Destionations/DESKTOP-JMS-DEST!Desktop_%s_JMSServer@%s" % (jmsserver, jmsserver, jmsserver, jmsserver, qname)
     cd("ServerRuntimes/%s/JMSRuntime/%s.jms/JMSServers/%s/Destionations/DESKTOP-JMS-DEST!Desktop_%s_JMSServer@%s") % (jmsserver, jmsserver, jmsserver, jmsserver, qname)
     pwd()
+    edit()
+    startEdit()
     cmo.deleteMessages()
     exit()

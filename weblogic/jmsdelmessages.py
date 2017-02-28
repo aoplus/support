@@ -37,6 +37,8 @@ if (len(servers) > 0):
                                 #Print Key Message Headers
                                 print 'Message ID           - ' + msgwithbody.getMessage().getJMSMessageID()
                                 print 'Message Priority     -' , msgwithbody.getMessage().getJMSPriority()
+				edit()
+				startEdit()
                                 destination.deleteMessages(wlmsgid)
                         print destination
                         exit()
