@@ -1,3 +1,4 @@
+
 from sys import argv
 from weblogic.jms.extensions import JMSMessageInfo
 from javax.jms import TextMessage

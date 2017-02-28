@@ -1,0 +1,11 @@
+import sys
+
+jmsservers=["Desktop_c41_Desktop_MS2_JMSServer", "Desktop_c41_Desktop_MS1_JMSServer"]
+jmsQueueJNDIs=["com.seic.common.cachewf.orchestrator.CacheReloadOrchestrator", "com.seic.common.cachewf.orchestrator.LaserAppFormFeedOrchestrator"]
+
+execfile('jython/connect.py')
+domainRuntime()
+qname = argv[1]
+for jmsserver in jmsservers:
+    # go to the path
+    print "ServerRuntimes/%s/JMSRuntime/%s.jms/JMSServers/Desktop_c41_%s_JMSServer/Destionations/DESKTOP-JMS-DEST!Destio_%s_JMSServer@%s" % (jmsserver, jmsserver, jmsserver, jmsserver, jmsserver)
