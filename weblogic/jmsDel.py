@@ -8,6 +8,8 @@ domainRuntime()
 qname = argv[1]
 for jmsserver in jmsservers:
     # go to the path
-    # print "ServerRuntimes/%s/JMSRuntime/%s.jms/JMSServers/%s/Destionations/DESKTOP-JMS-DEST!Desktop_%s_JMSServer@%s" % (jmsserver, jmsserver, jmsserver, jmsserver, qname)
+    print "ServerRuntimes/%s/JMSRuntime/%s.jms/JMSServers/%s/Destionations/DESKTOP-JMS-DEST!Desktop_%s_JMSServer@%s" % (jmsserver, jmsserver, jmsserver, jmsserver, qname)
     cd("ServerRuntimes/%s/JMSRuntime/%s.jms/JMSServers/%s/Destionations/DESKTOP-JMS-DEST!Desktop_%s_JMSServer@%s") % (jmsserver, jmsserver, jmsserver, jmsserver, qname)
+    pwd()
     cmo.deleteMessages()
+    exit()
